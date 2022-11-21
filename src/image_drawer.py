@@ -22,6 +22,9 @@ class ImageDrawer():
         '''
         path = self.input_image_path
         for file in os.listdir(path):
+            ext = file.split(".")[-1]
+            if ext not in ("png", "jpg", "jpeg"):
+                continue
             filepath = os.path.join(path, file)
             tmp_img = cv2.imread(filepath)
             tmp_img = cv2.resize(tmp_img, dsize=(0, 0), fx=self.ratio, fy=self.ratio)
@@ -64,6 +67,7 @@ class ImageDrawer():
             # 背景を透明化
             layered_img = _convert_to_transparent(masked_img_path)
             layered_img_path = f"./img/tmp/layered/layered_{i}.png"
+            cv2.imwrite(layered_img_path, layered_img)
 
             if i > 0:
                 below_layer = f'./img/tmp/layered/layered_{i-1}.png'

@@ -15,10 +15,12 @@ if __name__ == "__main__":
     step = 20
     
     # ソース画像の前処理
+    print("=== Preparing Source Image ===")
     image_preparer = ImagePreparer(src_image=src_image, step=step)
     image_preparer.run()
 
     # タイル画像の生成
+    print("=== Creating Tile Image ===")
     tile_src = "./img/source/lambda.png"
     tile_image = cv2.imread(tile_src)
     x, y, _ = src_image.shape
@@ -26,6 +28,7 @@ if __name__ == "__main__":
     tile_generator.run()
 
     # 出力画像の生成
+    print("=== Generating Output Image ===")
     ratio = tile_generator.get_tile_size()
     image_drawer = ImageDrawer(ratio=ratio, step=step)
     image_drawer.run()    
