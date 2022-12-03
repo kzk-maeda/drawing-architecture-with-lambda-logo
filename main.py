@@ -1,6 +1,4 @@
 import cv2
-import numpy as np
-import random
 
 from src.utils import *
 from src.image_preparer import *

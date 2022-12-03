@@ -1,4 +1,5 @@
 import os
+from tkinter.messagebox import NO
 import cv2
 import glob
 import numpy as np
@@ -31,7 +32,7 @@ class ImageDrawer():
             cv2.imwrite(filepath, tmp_img)
 
 
-    def _create_layer_img(self):
+    def _create_layer_img(self) -> None:
         '''
         レイヤー画像を生成して重ね合わせる
         '''
@@ -75,11 +76,17 @@ class ImageDrawer():
                 _overlap(below_layer, current_layer)
 
     
-    def _output_img(self):
-        pass
+    def _output_img(self) -> None:
+        '''
+        最終Layer画像をoutputディレクトリに保存
+        '''
+        last_step = self.step - 1
+        last_img_path = f"./img/tmp/layered/layered_{last_step}.png"
+        output_img_path = "./img/output/output.png"
+        cv2.imwrite(output_img_path, cv2.imread(last_img_path))
 
     
-    def run(self):
+    def run(self) -> None:
         self._resize()
         self._create_layer_img()
         self._output_img()
